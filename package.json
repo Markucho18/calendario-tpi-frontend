@@ -5,6 +5,7 @@
   "type": "module",
   "dependencies": {
     "@vitejs/plugin-react": "^4.3.4",
+    "dotenv": "^16.4.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.4.0",

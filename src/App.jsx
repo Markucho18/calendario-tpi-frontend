@@ -18,9 +18,12 @@ const App = () => {
         credentials: "include"
       })
       const data = await response.json()
+      if(response.status === 401) throw new Error("Debes iniciar sesion de nuevo")
+      if(response.status === 403) throw new Error(`El ${data.tipo}Token es invalido`)
       setTokenValido(true)
-      console.log({data})
+      console.log({response, data})
     } catch(error){
+      if(error instanceof Error) alert(error.message)
       setTokenValido(false)
     }
   }
@@ -62,7 +65,7 @@ const App = () => {
 
   return (
     <div className={styles.App}>
-      {validarToken === true ? (
+      {tokenValido === true ? (
         <Eventos />
       ) : (
         <div className={styles.contenedor_forms}>

@@ -32,7 +32,10 @@ const Login = () => {
         credentials: "include"
       })
       const data = await response.json()
-      if(!response.ok) throw new Error(data.msg)
+      const {msg, datosUsuario} = data
+      if(!response.ok) throw new Error(msg)
+      localStorage.setItem("id", datosUsuario.id)
+      localStorage.setItem("nombre", datosUsuario.nombre)
       console.log({data})
     } catch(error){
       console.log(error)

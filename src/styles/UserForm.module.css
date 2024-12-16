@@ -1,0 +1,10 @@
+form{
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 0px 3px rgb(0, 0, 0, 50%);
+  border-radius: 5px;
+  width: 300px;
+  padding: 1rem;
+  gap: 1rem;
+}
+

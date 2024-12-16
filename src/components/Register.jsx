@@ -1,9 +1,10 @@
 import {useState} from "react"
 import styles from "../styles/UserForm.module.css"
+import { Typewriter } from "react-simple-typewriter"
 
 const URL = "http://localhost:3001/usuarios/registrar"
 
-const Register = () => {
+const Register = ({toggleForm}) => {
 
   const initialFormData = {nombre: "", contrasena: ""}
 
@@ -39,31 +40,67 @@ const Register = () => {
   }
 
   return (
-    <form
-      style={styles.form}
-      onSubmit={handleSubmit}
-    >
-      <p>Registro</p>
-      <input
-        type="text"
-        name="nombre"
-        onChange={handleChange}
-        value={formData.nombre}
-        required
-        minLength={4}
-        placeholder="Nombre de usuario"
-      />
-      <input
-        type="text"
-        name="contrasena"
-        onChange={handleChange}
-        value={formData.contrasena}
-        required
-        minLength={8}
-        placeholder="Contraseña123"
-      />
-      <button type="submit">ENVIAR</button>
-    </form>
+    <div className={styles.contenedor}>
+      <form onSubmit={handleSubmit}>
+        <h1>Registrarse</h1>
+        <input
+            type="text"
+            name="nombre"
+            onChange={handleChange}
+            value={formData.nombre}
+            required
+            placeholder="Nombre de usuario"
+          />
+        <input
+            type="text"
+            name="contrasena"
+            onChange={handleChange}
+            value={formData.contrasena}
+            required
+            placeholder="Contraseña123"
+          />
+        <input
+            type="text"
+            name="contrasena"
+            onChange={handleChange}
+            value={formData.contrasena}
+            required
+            placeholder="Contraseña123"
+          />
+        <p onClick={toggleForm}>
+          Iniciar Sesion
+        </p>
+        <button type="submit">ENVIAR</button>
+      </form>
+      <section>
+        <p className={styles.titulo}>
+          <Typewriter
+            words={['Calendario TPI']}
+            loop={true}
+            cursor
+            cursorStyle="_"
+            typeSpeed={70}
+            deleteSpeed={50}
+            delaySpeed={1000}
+          />
+        </p>
+        <p className={styles.subtitulo}>
+          <Typewriter
+              words={['Por Tobias Zambrano']}
+              loop={true}
+              cursor
+              cursorStyle="_"
+              typeSpeed={70}
+              deleteSpeed={50}
+              delaySpeed={1000}
+          />
+        </p>
+        <div className={styles.info}>
+          <p>Colegio Tecnico Provincial Olga B de Arko</p>
+          <p>ReactJS - Nodejs - Express - SQL - JavaScript - CSS</p>
+        </div>
+      </section>
+    </div>
   )
 }
 

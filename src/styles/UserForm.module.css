@@ -1,10 +1,128 @@
-form{
+.contenedor{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  overflow: hidden;
+  border-radius: 2rem;
   box-shadow: 0px 0px 3px rgb(0, 0, 0, 50%);
-  border-radius: 5px;
-  width: 300px;
-  padding: 1rem;
-  gap: 1rem;
+  height: 42rem;
+  width: 80%;
+  /* transition: ease-in-out 300ms; */
 }
 
+.contenedor form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  padding: 1rem;
+  gap: 2rem;
+  height: 100%;
+  background-color: rgb(154, 224, 236);
+}
+
+.contenedor form h1{
+  font-size: 28px;
+  margin: 2rem 0rem;
+}
+
+.contenedor form input[type="text"]{
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  font-size: 16px;
+  width: 90%;
+  background-color: rgb(247, 244, 244);
+}
+
+.contenedor form input[type="text"]:focus{
+  outline: none;
+  background-color: white;
+}
+
+.contenedor form p{
+  font-size: 16px;
+  text-decoration: underline;
+  user-select: none;
+  cursor: pointer;
+}
+
+.contenedor form p:hover{
+  color: darkslategray;
+}
+
+.contenedor form button{
+  border-radius: 2rem;
+  padding: 1rem;
+  font-size: 16px;
+  background-color: rgb(85, 182, 238);
+  border: none;
+  font-weight: bold;
+  color: white;
+  transition: 150ms ease-in-out;
+  user-select: none;
+  cursor: pointer;
+}
+
+.contenedor form button:hover{
+  transform: scale(1.02);
+  background-color: rgb(60, 172, 233);
+}
+
+.contenedor section{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 2rem 0;
+  box-sizing: border-box;
+  background: linear-gradient(to right,#9064ba,#5ed779);
+}
+
+.contenedor section > *{
+  padding: 0 2rem;
+}
+
+.contenedor section .titulo{
+  font-size: 36px;
+  width: full;
+  margin: 1rem 0;
+  font-weight: 500;
+}
+
+.contenedor section .subtitulo{
+  font-size: 24px;
+  width: full;
+  margin: 0.5rem 0;
+  font-weight: 500;
+}
+
+.contenedor section .info{
+  font-size: 18px;
+}
+
+@media (max-width: 1500px){
+  .contenedor{
+    width: 85%;
+    height: 38rem;
+  }
+}
+@media (max-width: 1200px){
+  .contenedor{
+    width: 90%;
+    height: 38rem;
+  }
+}
+@media (max-width: 1000px){
+  .contenedor{
+    width: 95%;
+    height: 35rem;
+  }
+}
+@media (max-width: 800px){
+  .contenedor{
+    width: 100%;
+    height: 32rem;
+  }
+  .contenedor section{
+    display: none;
+  }
+}

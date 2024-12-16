@@ -63,15 +63,21 @@ const App = () => {
     console.log({tokenValido})
   },[tokenValido])
 
+  const [form, setForm] = useState("login")
+  const toggleForm = () => {
+    if(form === "login") setForm("register")
+    else setForm("login")
+  }
+
   return (
     <div className={styles.App}>
       {tokenValido === true ? (
         <Eventos />
       ) : (
-        <div className={styles.contenedor_forms}>
-          <Login />
-          <Register />
-        </div>
+        <>
+          {form === "login" && <Login toggleForm={toggleForm}/>}
+          {form === "register" && <Register toggleForm={toggleForm}/>}
+        </>
       )}
       <div className={styles.contenedor_forms}>
         <button

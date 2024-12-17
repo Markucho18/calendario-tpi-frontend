@@ -25,28 +25,66 @@
   margin: 2rem 0rem;
 }
 
+.contenedor form label{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: rgb(247, 244, 244);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  width: 90%;
+}
+
+.contenedor form label:focus-within{
+  background-color: white;
+}
+
+.contenedor form label input[type="text"],
+.contenedor form label input[type="password"]{
+  display: flex;
+  flex: 1;
+}
+
+.contenedor form label .icono_ojo{
+  padding: 0 0.5rem;
+  color: rgb(0, 0, 0, 50%);
+}
+
 .contenedor form input[type="text"]{
+  width: 90%;
+}
+
+.contenedor form input[type="text"],
+.contenedor form input[type="password"]{
   padding: 0.5rem;
   border-radius: 0.5rem;
   border: none;
   font-size: 16px;
-  width: 90%;
   background-color: rgb(247, 244, 244);
 }
 
-.contenedor form input[type="text"]:focus{
+
+.contenedor form input[type="text"]:focus,
+.contenedor form input[type="password"]:focus{
   outline: none;
   background-color: white;
 }
 
-.contenedor form p{
+.contenedor .error{
+  color: red;
+  font-size: 16px;
+  margin: 0;
+  width: 100%;
+}
+
+.contenedor form .toggle{
   font-size: 16px;
   text-decoration: underline;
   user-select: none;
   cursor: pointer;
 }
 
-.contenedor form p:hover{
+.contenedor form .toggle:hover{
   color: darkslategray;
 }
 

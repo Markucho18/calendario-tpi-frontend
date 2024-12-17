@@ -2,7 +2,8 @@ import { useState, useEffect } from "react"
 import styles from "./styles/App.module.css"
 import Register from "./components/Register"
 import Login from "./components/Login"
-import Eventos from "./components/Eventos"
+import borrarDatosUsuario from "./utils/borrarDatosUsuario"
+import PaginaPrincipal from "./components/PaginaPrincipal"
 
 //const URL = "https://bicicleteria-tpi-backend.onrender.com"
 const URL = "http://localhost:3001/"
@@ -28,19 +29,6 @@ const App = () => {
     }
   }
 
-  const peticionEventos = async () => {
-    try{
-      const response = await fetch("http://localhost:3001/eventos", {
-        method: "GET",
-        credentials: "include"
-      })
-      const data = await response.json()
-      console.log({data})
-    } catch(error){
-      console.log(error)
-    }
-  }
-
   const cerrarSesion = async () => {
     try{
       const response = await fetch("http://localhost:3001/usuarios/cerrar-sesion", {
@@ -49,6 +37,7 @@ const App = () => {
       })
       const data = await response.json()
       console.log({data})
+      borrarDatosUsuario()
       await validarToken()
     } catch(error){
       console.log(error)
@@ -72,10 +61,13 @@ const App = () => {
   return (
     <div className={styles.App}>
       {tokenValido === true ? (
-        <Eventos />
+        <PaginaPrincipal />
       ) : (
         <>
-          {form === "login" && <Login toggleForm={toggleForm}/>}
+          {form === "login" && <Login
+            toggleForm={toggleForm}
+            activarToken={() => setTokenValido(true)}
+          />}
           {form === "register" && <Register toggleForm={toggleForm}/>}
         </>
       )}
@@ -91,12 +83,6 @@ const App = () => {
           onClick={validarToken}
         >
           VALIDARTOKEN
-        </button>
-        <button
-          style={styles.button}
-          onClick={peticionEventos}
-        >
-          OBTENER EVENTOS
         </button>
       </div>
     </div>

@@ -1,0 +1,54 @@
+aside{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 16rem;
+  height: 100%;
+  background-color: #2e2e2e;
+  color: white;
+  box-sizing: border-box;
+  padding: 0.5rem;
+  transition: transform 200ms ease-in-out;
+}
+
+.abierto{
+  transform: translateX(0);
+}
+
+.cerrado{
+  transform: translateX(-300px);
+}
+
+.botonCrear{
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  user-select: none;
+  cursor: pointer;
+  border: none;
+  max-width: fit-content;
+  background-color: #707172;
+  color: white;
+  font-size: 16px;
+  transition: transform 200ms ease-in-out;
+}
+
+.cerrado .botonCrear{
+  transform: translateX(300px)
+}
+
+.botonCrear > span > svg{
+  font-size: 20px;
+}
+
+.botonCrear svg{
+  font-size: 18px;
+}
+
+.botonCrear:hover{
+  background-color: #88898a;
+}

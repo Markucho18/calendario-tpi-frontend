@@ -1,11 +1,20 @@
 header{
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   gap: 1rem;
   width: 100%;
   background-color: #2e2e2e;
   padding: 0.8rem 1rem;
+  box-sizing: border-box;
+}
+
+header > section{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.2rem;
 }
 
 .sideBarButton, .flechaDias{
@@ -45,8 +54,8 @@ header{
 }
 
 .titulo svg{
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2rem;
+  height: 2rem;
 }
 
 .titulo p{
@@ -54,7 +63,7 @@ header{
   margin: 0;
 }
 
-.botonHoy{
+.botonHoy, .botonVista{
   border-radius: 1rem;
   width: fit-content;
   padding: 0.5rem 2rem;
@@ -66,7 +75,64 @@ header{
   border: solid white 1px;
 }
 
-.botonHoy:hover{
+.botonHoy:hover, .botonVista:hover{
   background-color: #4e4e4e;
 }
 
+.contenedorVistas{
+  position: relative;
+}
+
+.botonVista{
+  display: flex;
+  flex-direction: row;
+  gap: 0.3rem;
+  align-items: center;
+}
+
+.fecha{
+  font-size: 20px;
+  color: white;
+  margin: 0;
+}
+
+.avatar{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 100%;
+  width: 1.3rem;
+  height: 1.3rem;
+  padding: 0.8rem;
+  background-color: coral;
+  margin: 0;
+}
+
+.modalVistas{
+  position: absolute;
+  top: 40px;
+  right: 0px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column; 
+  background-color: #5c5c5c;
+  border-radius: 1rem;
+  overflow: hidden;
+  color: white;
+  width: 100%;
+}
+
+.modalVistas .modalOpcion{
+  cursor: pointer;
+  user-select: none;
+  padding: 1rem;
+  margin: 0;
+}
+
+.modalVistas .modalOpcion:hover{
+  background-color: #6b6b6b;
+}

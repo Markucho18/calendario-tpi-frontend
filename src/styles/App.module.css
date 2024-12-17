@@ -27,3 +27,10 @@ button{
   height: 100%;
   background-color: white;
 }
+
+.contenedorPrincipal .seccionPrincipal{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}

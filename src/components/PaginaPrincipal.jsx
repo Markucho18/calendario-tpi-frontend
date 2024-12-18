@@ -5,7 +5,7 @@ import { useState } from "react"
 
 const PaginaPrincipal = () => {
 
-  const [estadoBarra, setEstadoBarra] = useState(false)
+  const [estadoBarra, setEstadoBarra] = useState(true)
 
   return (
     <div className={styles.contenedorPrincipal}>

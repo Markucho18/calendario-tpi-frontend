@@ -1,4 +1,4 @@
-header{
+.Header{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -10,7 +10,7 @@ header{
   box-sizing: border-box;
 }
 
-header > section{
+.Header > section{
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -29,8 +29,7 @@ header > section{
 }
 
 .sideBarButton:hover, .flechaDias:hover{
-  background-color: #4e4e4e;
-  
+  background-color: #4e4e4e; 
 }
 
 .sideBarButton .sideBarIcon{

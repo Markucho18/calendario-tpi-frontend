@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ModalVistas from "./ModalVistas";
 import styles from "../styles/Header.module.css"
 import { IoIosArrowBack } from "react-icons/io";
@@ -17,7 +17,7 @@ const Header = ({handleBarra}) => {
   const [vista, setVista] = useState("dia")
 
   return (
-    <header>
+    <header className={styles.Header}>
       <section>
         <button
           onClick={() => handleBarra(prev => !prev)}
@@ -54,6 +54,7 @@ const Header = ({handleBarra}) => {
           {modalVistas && (
             <ModalVistas
               handleVista={setVista}
+              cerrarModal={() => setModalVistas(false)}
             />
           )}
         </div>

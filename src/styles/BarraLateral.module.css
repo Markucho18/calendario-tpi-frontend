@@ -52,3 +52,53 @@ aside{
 .botonCrear:hover{
   background-color: #88898a;
 }
+
+.miniCalendario{
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem;
+  padding-top: 3rem;
+}
+
+.miniCalendario header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* .miniCalendario .flechas{
+
+} */
+
+.miniCalendario .flechas > svg{
+  border-radius: 100%;
+  width: fit-content;
+  height: fit-content;
+  border: none;
+  padding: 0.5rem;
+  background-color: #2e2e2e;
+  user-select: none;
+  cursor: pointer;
+}
+
+.miniCalendario .flechas > svg:hover{
+  background-color: #4e4e4e;
+}
+
+.miniCalendario table{
+  color: white;
+  font-size: 12px;
+  border: solid red 2px;
+  font-weight: lighter;
+}
+
+.miniCalendario table th,
+.miniCalendario table td{
+  text-align: center;
+}
+
+.miniCalendario .diaMesActual{
+  color: white;
+  font-weight: bold;
+}

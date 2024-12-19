@@ -6,8 +6,6 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-  /* padding: 2rem;
-  box-sizing: border-box; */
   background: rgb(31, 30, 30, 90%)
 }
 
@@ -39,6 +37,7 @@ p{
   flex-direction: row;
   width: 100%;
   height: 100%;
+  background-color: #2e2e2e;
 }
 
 .botonCrear{

@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  width: 16rem;
   height: 100%;
   background-color: #2e2e2e;
   color: white;
@@ -20,6 +19,7 @@
 .cerrado{
   transform: translateX(-16rem);
   width: 0rem;
+  padding: 0;
 }
 
 .miniCalendario{

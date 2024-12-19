@@ -1,9 +1,27 @@
+.contenedorVista{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background-color: #131314;
+  border-radius: 1.5rem;
+  overflow: hidden;
+}
+
+.contenedorVista header{
+  position: sticky; 
+  display: flex;
+  flex-direction: row;
+  height: 6rem;
+  width: 100%;
+  color: white;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
 .contenedorTablero{
   display: flex;
   flex-direction: row;
-  flex: 1;
-  padding-top: 2rem;
-  background-color: #131314;
   overflow-x: hidden;
   overflow-y: scroll;
 }
@@ -13,7 +31,10 @@
   flex-direction: column;
   gap: 2rem;
   color: white;
+  min-height: 100%;
   padding-left: 2rem;
+  padding-right: 1rem;
+  border-right: solid rgb(256, 256, 256 , 20%) 2px;
 }
 
 .contenedorTablero aside p{
@@ -24,5 +45,5 @@
 .tableroDia{
   display: grid;
   flex: 1;
-  height: 100%;
+  min-height: 100%;
 }

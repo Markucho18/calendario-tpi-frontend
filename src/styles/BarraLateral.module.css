@@ -1,63 +1,32 @@
-aside{
-  position: relative;
+.sidebar{
   display: flex;
   flex-direction: column;
+  gap: 2rem;
   width: 16rem;
   height: 100%;
   background-color: #2e2e2e;
   color: white;
   box-sizing: border-box;
-  padding: 0.5rem;
-  transition: transform 200ms ease-in-out;
+  padding: 1rem 1.2rem;
+  transition: 200ms ease-in-out;
+  margin: 0;
 }
 
 .abierto{
   transform: translateX(0);
+  width: 16rem;
 }
 
 .cerrado{
-  transform: translateX(-300px);
-}
-
-.botonCrear{
-  position: absolute;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-  border-radius: 1rem;
-  user-select: none;
-  cursor: pointer;
-  border: none;
-  max-width: fit-content;
-  background-color: #707172;
-  color: white;
-  font-size: 16px;
-  transition: transform 200ms ease-in-out;
-}
-
-.cerrado .botonCrear{
-  transform: translateX(300px)
-}
-
-.botonCrear > span > svg{
-  font-size: 20px;
-}
-
-.botonCrear svg{
-  font-size: 18px;
-}
-
-.botonCrear:hover{
-  background-color: #88898a;
+  transform: translateX(-16rem);
+  width: 0rem;
 }
 
 .miniCalendario{
   display: flex;
   flex-direction: column;
-  padding: 0 1rem;
-  padding-top: 3rem;
+  padding-top: 4rem;
+  gap: 0.6rem;
 }
 
 .miniCalendario header{
@@ -65,6 +34,11 @@ aside{
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  padding-left: 0.3rem;
+}
+
+.miniCalendario header p{
+  margin: 0;
 }
 
 /* .miniCalendario .flechas{
@@ -89,16 +63,126 @@ aside{
 .miniCalendario table{
   color: white;
   font-size: 12px;
-  border: solid red 2px;
   font-weight: lighter;
+  min-width: 100%;
 }
 
 .miniCalendario table th,
 .miniCalendario table td{
   text-align: center;
+  width: 1.2rem;
+  height: 1.5rem;
 }
 
-.miniCalendario .diaMesActual{
+.miniCalendario table td{
+  border-radius: 100%;
+  user-select: none;
+  cursor: pointer;
+}
+
+.miniCalendario table td:hover{
+  background-color: rgb(256, 256, 256, 20%);
+}
+
+.miniCalendario .diaActual{
   color: white;
+  font-weight: normal;
+  background-color: #a8c7fa;
+}
+
+.miniCalendario .diaActual:hover{
+  background-color: #8eb4f1;
+}
+
+.categorias header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0rem 0.5rem;
+  border-radius: 1rem;
+  padding: 0.5rem 0.3rem;
+}
+
+.categorias header:hover{
+  background-color: rgb(256, 256, 256, 20%);
+  cursor: pointer;
+  user-select: none;
+}
+
+.categorias ul{
+  margin: 0;
+  padding: 0;
+}
+
+.categorias ul li{
+  display: flex; 
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  user-select: none;
+  padding: 0.5rem 0.3rem;
+  border-radius: 1rem;
+  padding-left: 0.7rem;
+}
+
+.categorias ul li:hover{
+  background-color: rgb(256, 256, 256, 20%);
+}
+
+.categorias ul li .contenedorCheck{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.1rem;
+  width: 1rem;
+  height: 1rem;
+  position: relative;
+  border: solid red 2px;
+  border-radius: 5px;
+  transition: 150ms ease-in-out;
+}
+
+.categorias ul li .contenedorCheck input{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  inset: 0;
+  margin: 0;
+  border: none;
+  opacity: 0;
+}
+
+.categorias ul li .contenedorCheck svg{
+  width: 90%;
+  height: 90%;
+}
+
+.categorias ul li p{
+  flex: 1;
+}
+
+.categorias ul li button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: transparent;
+  border: none;
+  border-radius: 100%;
+  width: 1.5rem;
+  height: 1.5rem;
+  user-select: none;
+  cursor: pointer;
+}
+
+.categorias ul li button:hover{
+  background-color: rgb(256, 256, 256, 20%);
+}
+
+.categorias ul li button svg{
   font-weight: bold;
+  width: 100%;
+  height: 100%;
 }

@@ -40,14 +40,18 @@ const MiniCalendario = () => {
     }
     setMes(nuevoMes)
     setAnio(nuevoAnio)
+    setSemanasCalendario(generarCalendario(nuevoMes, nuevoAnio))
   }
 
-  useEffect(()=>{
-    console.log({mes, anio})
-  }, [mes])
+  const hoy = new Date().toISOString().split("T")[0]
+
+/*   useEffect(()=>{
+    
+    console.log({mes, anio, semanasCalendario, hoy})
+  }, [mes]) */
 
   return (
-    <div className={styles.miniCalendario}>
+    <section className={styles.miniCalendario}>
       <header style={styles.header}>
         <p>{`${meses[mes - 1]}, ${anio}`}</p>
         <div className={styles.flechas}>
@@ -64,28 +68,20 @@ const MiniCalendario = () => {
         <tbody>
           {semanasCalendario.map((semana, i) => (
             <tr key={i}>
-              {semana.map((fecha, i) =>{
-                return parseInt(fecha.split("-")[1]) === mes ? (
-                  <td
-                    key={i}
-                    style={{color: "white", fontWeight: "bold"}}
-                  >
-                    {fecha.split("-")[2]}
-                  </td>
-                ) : (
-                  <td
-                    key={i}
-                  >
-                    {fecha.split("-")[2]}
-                  </td>
-                )
-              })}
+              {semana.map((fecha, i) =>(
+                <td
+                  key={i}
+                  style={parseInt(fecha.split("-")[1]) === mes ? {color: "white", fontWeight: "bold"} : {}}
+                  className={fecha === hoy && styles.diaActual}
+                >
+                  {fecha.split("-")[2]}
+                </td>
+              ))}
             </tr>
           ))}
         </tbody>
       </table>
-      <button onClick={() => generarCalendario(mes, anio)}>Generear</button>
-    </div>
+    </section>
   )
 }
 

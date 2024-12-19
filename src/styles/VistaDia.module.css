@@ -1,0 +1,28 @@
+.contenedorTablero{
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  padding-top: 2rem;
+  background-color: #131314;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.contenedorTablero aside{
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  color: white;
+  padding-left: 2rem;
+}
+
+.contenedorTablero aside p{
+  opacity: 75%;
+  font-size: 12px;
+}
+
+.tableroDia{
+  display: grid;
+  flex: 1;
+  height: 100%;
+}

@@ -47,8 +47,6 @@ const generarCalendario = (mes, anio) => {
     semanasCalendario.push(semana)
   }
 
-  console.log(semanasCalendario)
-
   return semanasCalendario
 
 }

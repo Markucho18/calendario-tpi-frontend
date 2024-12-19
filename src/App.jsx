@@ -71,20 +71,6 @@ const App = () => {
           {form === "register" && <Register toggleForm={toggleForm}/>}
         </>
       )}
-      <div className={styles.contenedor_forms}>
-        <button
-          style={styles.button}
-          onClick={cerrarSesion}
-        >
-          CERRAR SESION
-        </button>
-        <button
-          style={styles.button}
-          onClick={validarToken}
-        >
-          VALIDARTOKEN
-        </button>
-      </div>
     </div>
   )
 }

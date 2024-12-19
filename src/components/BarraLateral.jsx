@@ -1,21 +1,42 @@
+import { useState } from "react";
 import styles from "../styles/BarraLateral.module.css"
 import MiniCalendario from "./MiniCalendario";
-import { FaPlus } from "react-icons/fa";
-import { IoMdArrowDropdown } from "react-icons/io";
+import Categoria from "./Categoria";
+import { IoIosArrowUp } from "react-icons/io";
+import { IoIosArrowDown } from "react-icons/io";
+
+const categorias = ["Estudio", "Trabajo", "Deporte", "Ocio"]
 
 const BarraLateral = ({estado}) => {
+
+  const [categoriasVisibles, setCategoriasVisibles] = useState(false)
+
   return (
-    <aside className={`${estado ? styles.abierto : styles.cerrado} ${styles.aside}`}>
-      <button className={styles.botonCrear}>
-        <span><FaPlus /></span>
-        {estado && (
-          <>
-            Crear
-            <IoMdArrowDropdown />
-          </>
-        )}
-      </button>
+    <aside className={`
+      ${styles.sidebar}
+      ${estado ? styles.abierto : styles.cerrado}
+    `}>
       <MiniCalendario />
+      <section className={styles.categorias}>
+        <header onClick={() => setCategoriasVisibles(prev => !prev)}>
+          <p>Categorias</p>
+          {categoriasVisibles ? (
+              <IoIosArrowUp/>
+            ) : (
+              <IoIosArrowDown/>
+            )}
+        </header>
+        {categoriasVisibles && (
+          <ul>
+            {categorias.map((categoria, i) => (
+              <Categoria
+                key={i}
+                nombre={categoria}
+              />
+            ))}
+          </ul>
+        )}
+      </section>
     </aside>
   )
 }

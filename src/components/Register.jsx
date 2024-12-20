@@ -55,6 +55,7 @@ const Register = ({toggleForm}) => {
       const data = await response.json()
       console.log({data})
       setFormData(initialFormData)
+      toggleForm()
     } catch(error){
       toast(error.message ?? "Ocurrio un error", {
         position: "bottom-right",

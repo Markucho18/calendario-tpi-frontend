@@ -29,9 +29,9 @@
 .contenedorTablero aside{
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 4rem;
   color: white;
-  min-height: 100%;
+  height: 100%;
   padding-left: 2rem;
   padding-right: 1rem;
   border-right: solid rgb(256, 256, 256 , 20%) 2px;
@@ -44,6 +44,17 @@
 
 .tableroDia{
   display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(96, 1rem);
   flex: 1;
   min-height: 100%;
+  border-top: solid rgb(256, 256, 256 , 20%) 1px;
+}
+
+.tableroDia .rango{
+  grid-column: 1 / 7;
+}
+
+.tableroDia .rango:nth-child(4n){
+  border-bottom: solid rgb(256, 256, 256 , 20%) 1px;
 }

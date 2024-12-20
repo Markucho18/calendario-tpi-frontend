@@ -1,6 +1,15 @@
 import styles from "../styles/VistaDia.module.css"
+import calcularRango from "../utils/calcularRango"
+import crearRangosHoras from "../utils/crearRangoHoras"
+
+
 
 const VistaDia = () => {
+
+  const rangoHoras = crearRangosHoras()
+
+  calcularRango("00:00", "01:20")
+
   return (
     <main className={styles.contenedorVista}> 
       <header>
@@ -15,7 +24,16 @@ const VistaDia = () => {
             <p key={i}>{i === 14 ? "" : `${i === 0 ? 12 : i } PM`}</p>
           ))}
         </aside>
-        <div className={styles.tableroDia}></div>
+        <div className={styles.tableroDia}>
+          {rangoHoras.map((hora, i)=>(
+            <div
+              key={i}
+              rango={hora}
+              className={styles.rango}
+            >
+            </div>
+          ))}
+        </div>
       </div>
     </main>
   )

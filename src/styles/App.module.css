@@ -40,11 +40,17 @@ p{
   background-color: #2e2e2e;
 }
 
-.botonCrear{
+.contenedorBoton{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   position: absolute;
   top: 5.5rem;
   left: 1rem;
   z-index: 10;
+}
+
+.contenedorBoton .botonCrear{
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -61,18 +67,39 @@ p{
   transition: transform 200ms ease-in-out;
 }
 
-.cerrado .botonCrear{
+.cerrado .contenedorBoton{
   transform: translateX(16rem);
 }
 
-.botonCrear > span > svg{
+.contenedorBoton .botonCrear > span > svg{
   font-size: 20px;
 }
 
-.botonCrear svg{
+.contenedorBoton .botonCrear svg{
   font-size: 18px;
 }
 
-.botonCrear:hover{
+.contenedorBoton .botonCrear:hover{
   background-color: #88898a;
+}
+
+.contenedorBoton .modalOpciones{
+  display: flex;
+  flex-direction: column; 
+  background-color: #5c5c5c;
+  border-radius: 1rem;
+  overflow: hidden;
+  color: white;
+  width: 100%;
+}
+
+.contenedorBoton .modalOpciones .modalOpcion{
+  cursor: pointer;
+  user-select: none;
+  padding: 1rem;
+  margin: 0;
+}
+
+.contenedorBoton .modalOpciones .modalOpcion:hover{
+  background-color: #6b6b6b;
 }

@@ -12,17 +12,40 @@ const PaginaPrincipal = () => {
   
   const [vista, setVista] = useState("dia")
 
+  const [modalOpciones, setModalOpciones] = useState(false)
+
   return (
     <div className={styles.contenedorPrincipal}>
-      <button className={styles.botonCrear}>
-        <span><FaPlus /></span>
-        {estadoBarra && (
-          <>
-            Crear
-            <IoMdArrowDropdown />
-          </>
+      <div className={styles.contenedorBoton}>
+        <button
+          onClick={() => setModalOpciones(prev => !prev)}
+          className={styles.botonCrear}
+        >
+          <span><FaPlus /></span>
+          {estadoBarra && (
+            <>
+              Crear
+              <IoMdArrowDropdown />
+            </>
+          )}
+        </button>
+        {modalOpciones && (
+          <div className={styles.modalOpciones}>
+            <p
+              onClick={() => setModalOpciones(false)}
+              className={styles.modalOpcion}
+            >
+              Evento
+            </p>
+            <p
+              onClick={() => setModalOpciones(false)}
+              className={styles.modalOpcion}
+            >
+              Tarea
+            </p>
+          </div>
         )}
-      </button>
+      </div>
       <Header
         handleBarra={setEstadoBarra}
       />

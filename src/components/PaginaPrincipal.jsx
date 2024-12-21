@@ -6,7 +6,7 @@ import VistaDia from "./VistaDia"
 import { FaPlus } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
 
-const PaginaPrincipal = () => {
+const PaginaPrincipal = ({toggleModalEvento}) => {
 
   const [estadoBarra, setEstadoBarra] = useState(true)
   
@@ -32,7 +32,10 @@ const PaginaPrincipal = () => {
         {modalOpciones && (
           <div className={styles.modalOpciones}>
             <p
-              onClick={() => setModalOpciones(false)}
+              onClick={() =>{
+                toggleModalEvento()
+                setModalOpciones(false)
+              }}
               className={styles.modalOpcion}
             >
               Evento

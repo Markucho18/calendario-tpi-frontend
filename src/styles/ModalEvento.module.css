@@ -39,7 +39,7 @@
   margin-left: 2.5rem;
   background-color: transparent;
   border: none;
-  border-bottom: solid rgb(65, 129, 225, 50%) 2px;
+  border-bottom: solid rgb(65, 129, 225, 70%) 2px;
   color: white;
   transition: 100ms ease-in-out;
   font-size: 24px;
@@ -80,6 +80,12 @@
   cursor: pointer;
 }
 
+.contenedorModalEvento form .datosFecha .contenedorHora{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
 .contenedorModalEvento form .datosFecha input:focus,
 .contenedorModalEvento form .datosDescripcion textarea:focus{
   outline: none;
@@ -89,12 +95,13 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  width: 8rem;
 }
 
 .contenedorModalEvento form .contenedorCategoria .tituloCategoria{
   display: flex;
   flex-direction: row;
-  gap: 0.2rem;
+  justify-content: space-between;
   background-color: rgb(256, 256, 256, 20%);
   border-radius: 0.5rem;
   padding: 0.5rem;
@@ -173,4 +180,28 @@
 
 .contenedorModalEvento form footer button:hover{
   background-color: #89a6da;
+}
+
+.selectHora{
+  position: absolute;
+  top: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  min-width: 100%;
+  background-color: #4e4f50;
+  border-radius: 0.5rem;
+  box-shadow: 0px 0px 1px black;
+  padding-left: 0;
+}
+
+.selectHora li{
+  margin-left: 0;
+  display: flex;
+  padding: 0.5rem;  
+  user-select: none;
+  cursor: pointer;
+}
+
+.selectHora li:hover{
+  background-color: rgb(256, 256, 256, 20%); 
 }

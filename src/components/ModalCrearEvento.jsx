@@ -1,5 +1,6 @@
 import styles from "../styles/ModalEvento.module.css"
 import { useState } from "react"
+import SelectHora from "./SelectHora";
 import { FaRegClock } from "react-icons/fa";
 import { MdLabel } from "react-icons/md";
 import { IoMdArrowDropdown } from "react-icons/io";
@@ -8,11 +9,20 @@ import { MdClose } from "react-icons/md";
 
 const ModalCrearEvento = ({cerrarModal}) => {
 
+  const calcularHoraEn30Mins = () => {
+    const horaEnSegundos = new Date(Date.now() + 30 * 60 * 1000)
+    return horaEnSegundos.toLocaleTimeString().slice(0, 5)
+  }
+  
+  const fechaActual = ((new Date()).toISOString()).split("T")[0]
+  const horaActual = `${(new Date()).getHours()}:${(new Date()).getMinutes()}`
+  const horaEn30Mins = calcularHoraEn30Mins()
+
   const initialFormData = {
     nombre: "",
-    fecha: "",
-    hora_inicio: "",
-    hora_final: "",
+    fecha: fechaActual,
+    hora_inicio: horaActual,
+    hora_final: horaEn30Mins,
     categoria: "",
     descripcion: ""
   }
@@ -37,11 +47,24 @@ const ModalCrearEvento = ({cerrarModal}) => {
     })
   }
 
+  const handleHoraInicio = (hora) => {
+    setFormData(prev =>{
+      return {...prev, hora_inicio: hora}
+    })
+  }
+
+  const handleHoraFinal = (hora) => {
+    setFormData(prev =>{
+      return {...prev, hora_final: hora}
+    })
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
     try{
       //EL BACKEND EXTRAE EL USUARIO DESDE LA VALIDACION DEL TOKEN, NO ES NECESARIO HACERLO ACA
       //HACER SELECTS EN VEZ DE INPUTS TIME, UN POCO MAS ENGORROSO PERO UTIL
+      console.log({formData})
       setFormData(initialFormData)
     } catch(error){
       console.log(error.message ?? "Ocurrio un error")
@@ -76,7 +99,7 @@ const ModalCrearEvento = ({cerrarModal}) => {
           minLength={4}
           maxLength={70}
         />
-        <div className={styles.datosFecha}>
+        <section className={styles.datosFecha}>
           <FaRegClock />
           <input
             type="date"
@@ -84,21 +107,33 @@ const ModalCrearEvento = ({cerrarModal}) => {
             value={formData.fecha}
             onChange={handleChange}
           />
-          <input
-            type="time"
-            name="hora_inicio"
-            value={formData.hora_inicio}
-            onChange={handleChange}
-          />
+          <div className={styles.contenedorHora}>
+            <input
+              type="time"
+              name="hora_inicio"
+              value={formData.hora_inicio}
+              onChange={handleChange}
+            />
+            <SelectHora
+              rango={[1, 2, 3]}
+              setHora={handleHoraInicio}
+            />
+          </div>
           <p>-</p> 
-          <input
-            type="time"
-            name="hora_final"
-            value={formData.hora_final}
-            onChange={handleChange}
-          />
-        </div>
-        <div className={styles.datosCategoria}>
+          <div className={styles.contenedorHora}>
+            <input
+              type="time"
+              name="hora_final"
+              value={formData.hora_final}
+              onChange={handleChange}
+            />
+            <SelectHora
+              rango={[1, 2, 3]}
+              setHora={handleHoraFinal}
+            />
+          </div>
+        </section>
+        <section className={styles.datosCategoria}>
           <MdLabel />
           <div
             className={styles.contenedorCategoria}
@@ -116,18 +151,21 @@ const ModalCrearEvento = ({cerrarModal}) => {
             {opciones && (
               <div className={styles.opcionesCategoria}>
                 {categorias.map((categoria, i) => (
-                  <p onClick={() => {
-                    handleCategoria(categoria)
-                    toggleOpciones()
-                  }}>
+                  <p
+                    key={i} 
+                    onClick={() => {
+                      handleCategoria(categoria)
+                      toggleOpciones()
+                    }}
+                  >
                     {`${categoria[0].toUpperCase()}${categoria.slice(1)}`}
                   </p>
                 ))}
               </div>
             )}
           </div>
-        </div>
-        <div className={styles.datosDescripcion}>
+        </section>
+        <section className={styles.datosDescripcion}>
           <LuText />
           <textarea
             name="descripcion"
@@ -137,7 +175,7 @@ const ModalCrearEvento = ({cerrarModal}) => {
           >
 
           </textarea>
-        </div>
+        </section>
         <footer>
           <button type="submit">
             Guardar

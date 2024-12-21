@@ -61,8 +61,6 @@ const App = () => {
 
   const [modalEvento, setModalEvento] = useState(false)
 
-  useEffect(()=>{console.log({modalEvento})},[modalEvento])
-
   return (
     <div className={styles.App}>
       {modalEvento && <ModalCrearEvento

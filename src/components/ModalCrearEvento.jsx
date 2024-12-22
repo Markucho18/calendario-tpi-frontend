@@ -6,23 +6,24 @@ import { MdLabel } from "react-icons/md";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { LuText } from "react-icons/lu";
 import { MdClose } from "react-icons/md";
+import crearIntervaloHoras from "../utils/crearIntervaloHoras";
 
 const ModalCrearEvento = ({cerrarModal}) => {
 
-  const calcularHoraEn30Mins = () => {
+/*   const calcularHoraEn30Mins = () => {
     const horaEnSegundos = new Date(Date.now() + 30 * 60 * 1000)
     return horaEnSegundos.toLocaleTimeString().slice(0, 5)
   }
   
-  const fechaActual = ((new Date()).toISOString()).split("T")[0]
   const horaActual = `${(new Date()).getHours()}:${(new Date()).getMinutes()}`
-  const horaEn30Mins = calcularHoraEn30Mins()
+  const horaEn30Mins = calcularHoraEn30Mins() */
+  const fechaActual = ((new Date()).toISOString()).split("T")[0]
 
   const initialFormData = {
     nombre: "",
     fecha: fechaActual,
-    hora_inicio: horaActual,
-    hora_final: horaEn30Mins,
+    hora_inicio: "00:00",
+    hora_final: "00:30",
     categoria: "",
     descripcion: ""
   }
@@ -115,7 +116,7 @@ const ModalCrearEvento = ({cerrarModal}) => {
               onChange={handleChange}
             />
             <SelectHora
-              rango={[1, 2, 3]}
+              rango={crearIntervaloHoras("00:00")}
               setHora={handleHoraInicio}
             />
           </div>
@@ -128,7 +129,7 @@ const ModalCrearEvento = ({cerrarModal}) => {
               onChange={handleChange}
             />
             <SelectHora
-              rango={[1, 2, 3]}
+              rango={crearIntervaloHoras(formData.hora_inicio)}
               setHora={handleHoraFinal}
             />
           </div>
@@ -173,7 +174,6 @@ const ModalCrearEvento = ({cerrarModal}) => {
             onChange={handleChange}
             maxLength={250}
           >
-
           </textarea>
         </section>
         <footer>

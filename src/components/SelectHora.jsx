@@ -1,18 +1,15 @@
 import styles from "../styles/ModalEvento.module.css"
-import crearIntervaloHoras from "../utils/crearIntervaloHoras"
 
 const SelectHora = ({rango, setHora}) => {
-
-  crearIntervaloHoras()
 
   return (
     <ul className={styles.selectHora}>
       {rango.map((hora, i)=>(
         <li
           key={i}
-          onClick={() => setHora(hora)}
+          onClick={() => setHora(hora[0])}
         >
-          {hora}
+          {`${hora[0]} (${hora[1]})`}
         </li>
       ))}
     </ul>

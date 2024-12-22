@@ -192,6 +192,8 @@
   border-radius: 0.5rem;
   box-shadow: 0px 0px 1px black;
   padding-left: 0;
+  height: 7rem;
+  overflow-y: scroll;
 }
 
 .selectHora li{

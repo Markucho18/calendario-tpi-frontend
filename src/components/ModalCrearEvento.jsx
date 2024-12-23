@@ -1,22 +1,29 @@
 import styles from "../styles/ModalEvento.module.css"
 import { useState } from "react"
-import SelectHora from "./SelectHora";
-import { FaRegClock } from "react-icons/fa";
+import { FaRegClock, FaTheRedYeti } from "react-icons/fa";
 import { MdLabel } from "react-icons/md";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { LuText } from "react-icons/lu";
 import { MdClose } from "react-icons/md";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import crearIntervaloHoras from "../utils/crearIntervaloHoras";
+import { useEventosContext } from "../contexts/EventosContext";
+
+const URL = "http://localhost:3001/eventos/crear"
 
 const ModalCrearEvento = ({cerrarModal}) => {
 
-/*   const calcularHoraEn30Mins = () => {
-    const horaEnSegundos = new Date(Date.now() + 30 * 60 * 1000)
-    return horaEnSegundos.toLocaleTimeString().slice(0, 5)
+  const compararHoras = (inicio, final) => {
+    const horasInicio = parseInt(inicio.split(":")[0])
+    const horasFinal = parseInt(final.split(":")[0])
+    const minutosInicio = horasInicio * 60 + parseInt(inicio.split(":")[1])
+    const minutosFinal = horasFinal * 60 + parseInt(final.split(":")[1])
+    const esValido = (minutosFinal - minutosInicio) > 0
+    console.log({minutosFinal, minutosInicio, esValido})
+    return esValido
   }
-  
-  const horaActual = `${(new Date()).getHours()}:${(new Date()).getMinutes()}`
-  const horaEn30Mins = calcularHoraEn30Mins() */
+
   const fechaActual = ((new Date()).toISOString()).split("T")[0]
 
   const initialFormData = {
@@ -48,27 +55,43 @@ const ModalCrearEvento = ({cerrarModal}) => {
     })
   }
 
-  const handleHoraInicio = (hora) => {
-    setFormData(prev =>{
-      return {...prev, hora_inicio: hora}
-    })
+  const validarDatos = (formData) => {
+    const {hora_inicio, hora_final, nombre} = formData
+    const errores = []
+    const horaValida = compararHoras(hora_inicio, hora_final)
+    const tituloValido = nombre.length !== 0
+    if(!horaValida) errores.push("El rango de horas no es valido")
+    if(!tituloValido) errores.push("El titulo no puede estar vacio")
+    return errores
   }
 
-  const handleHoraFinal = (hora) => {
-    setFormData(prev =>{
-      return {...prev, hora_final: hora}
-    })
-  }
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     try{
-      //EL BACKEND EXTRAE EL USUARIO DESDE LA VALIDACION DEL TOKEN, NO ES NECESARIO HACERLO ACA
-      //HACER SELECTS EN VEZ DE INPUTS TIME, UN POCO MAS ENGORROSO PERO UTIL
-      console.log({formData})
+      const errores = validarDatos(formData)
+      if(errores.length > 0) throw new Error(errores[0])
+      const response = await fetch(URL, {
+        method: "POST",
+        credentials: "include",
+        headers:{
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify(formData)
+      })
+      const data = await response.json()
+      if(!response.ok) throw new Error(data.msg)
+      console.log({response, data, formData})
       setFormData(initialFormData)
     } catch(error){
-      console.log(error.message ?? "Ocurrio un error")
+      toast(error.message ?? "Ocurrio un error", {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        pauseOnHover: true,
+        style:{
+          color: "red"
+        }
+      });
     }
   }
 
@@ -108,31 +131,19 @@ const ModalCrearEvento = ({cerrarModal}) => {
             value={formData.fecha}
             onChange={handleChange}
           />
-          <div className={styles.contenedorHora}>
-            <input
-              type="time"
-              name="hora_inicio"
-              value={formData.hora_inicio}
-              onChange={handleChange}
-            />
-            <SelectHora
-              rango={crearIntervaloHoras("00:00")}
-              setHora={handleHoraInicio}
-            />
-          </div>
+          <input
+            type="time"
+            name="hora_inicio"
+            value={formData.hora_inicio}
+            onChange={handleChange}
+          />
           <p>-</p> 
-          <div className={styles.contenedorHora}>
-            <input
-              type="time"
-              name="hora_final"
-              value={formData.hora_final}
-              onChange={handleChange}
-            />
-            <SelectHora
-              rango={crearIntervaloHoras(formData.hora_inicio)}
-              setHora={handleHoraFinal}
-            />
-          </div>
+          <input
+            type="time"
+            name="hora_final"
+            value={formData.hora_final}
+            onChange={handleChange}
+          />
         </section>
         <section className={styles.datosCategoria}>
           <MdLabel />
@@ -182,6 +193,7 @@ const ModalCrearEvento = ({cerrarModal}) => {
           </button>
         </footer>
       </form>
+      <ToastContainer />
     </div>
   )
 }

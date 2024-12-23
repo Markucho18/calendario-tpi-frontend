@@ -80,11 +80,11 @@
   cursor: pointer;
 }
 
-.contenedorModalEvento form .datosFecha .contenedorHora{
+/* .contenedorModalEvento form .datosFecha .contenedorHora{
   position: relative;
   display: flex;
   flex-direction: column;
-}
+} */
 
 .contenedorModalEvento form .datosFecha input:focus,
 .contenedorModalEvento form .datosDescripcion textarea:focus{
@@ -182,7 +182,7 @@
   background-color: #89a6da;
 }
 
-.selectHora{
+/* .selectHora{
   position: absolute;
   top: 1.2rem;
   display: flex;
@@ -206,4 +206,4 @@
 
 .selectHora li:hover{
   background-color: rgb(256, 256, 256, 20%); 
-}
+} */

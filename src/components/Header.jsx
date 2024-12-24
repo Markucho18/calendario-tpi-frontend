@@ -10,11 +10,9 @@ import formatearFecha from "../utils/formatearFechaHeader";
 import obtenerDatosUsuario from "../utils/obtenerDatosUsuario";
 
 
-const Header = ({handleBarra}) => {
+const Header = ({vista, handleVista, handleBarra}) => {
 
   const [modalVistas, setModalVistas] = useState(false)
-
-  const [vista, setVista] = useState("dia")
 
   return (
     <header className={styles.Header}>
@@ -53,7 +51,7 @@ const Header = ({handleBarra}) => {
           </button>
           {modalVistas && (
             <ModalVistas
-              handleVista={setVista}
+              handleVista={handleVista}
               cerrarModal={() => setModalVistas(false)}
             />
           )}

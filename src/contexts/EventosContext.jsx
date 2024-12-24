@@ -1,10 +1,13 @@
-import { useContext, createContext, useState } from "react";
+import { useContext, createContext, useState, useEffect } from "react";
 
 const EventosContext = createContext()
 
 const URL = "http://localhost:3001/eventos"
 
 export const EventosContextProvider = ({children}) => {
+
+  const [eventos, setEventos] = useState()
+  const [eventosFiltrados, setEventosFiltrados] = useState([])
 
   const obtenerEventos = async () => {
     try{
@@ -20,9 +23,6 @@ export const EventosContextProvider = ({children}) => {
       console.log(error.message ?? "Ocurrio un error")
     }
   }
-
-  const [eventos, setEventos] = useState(obtenerEventos())
-  const [eventosFiltrados, setEventosFiltrados] = useState([])
 
   const crearEvento = (infoEvento) => {
     setEventos(prev => [...prev, infoEvento])
@@ -49,7 +49,13 @@ export const EventosContextProvider = ({children}) => {
     })
   }
 
+  useEffect(()=>{
+    obtenerEventos()
+  },[])
 
+  useEffect(()=>{
+    console.log({eventos}) 
+  },[eventos])
 
   return (
     <EventosContext.Provider

@@ -3,6 +3,7 @@ import { useState } from "react"
 import Header from "./Header"
 import BarraLateral from "./BarraLateral"
 import VistaDia from "./VistaDia"
+import VistaMes from "./VistaMes"
 import { FaPlus } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
 
@@ -50,6 +51,8 @@ const PaginaPrincipal = ({toggleModalEvento}) => {
         )}
       </div>
       <Header
+        vista={vista}
+        handleVista={setVista}
         handleBarra={setEstadoBarra}
       />
       <div className={`
@@ -59,9 +62,8 @@ const PaginaPrincipal = ({toggleModalEvento}) => {
         <BarraLateral
           estado={estadoBarra}
         />
-        {vista === "dia" && (
-          <VistaDia/>
-        ) }
+        {vista === "dia" && <VistaDia/>}
+        {vista === "mes" && <VistaMes/>}
       </div>
     </div>
   )

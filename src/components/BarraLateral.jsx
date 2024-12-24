@@ -4,10 +4,11 @@ import MiniCalendario from "./MiniCalendario";
 import Categoria from "./Categoria";
 import { IoIosArrowUp } from "react-icons/io";
 import { IoIosArrowDown } from "react-icons/io";
-
-const categorias = ["Estudio", "Trabajo", "Deporte", "Ocio"]
+import { useEventosContext } from "../contexts/EventosContext";
 
 const BarraLateral = ({estado}) => {
+
+  const {categorias} = useEventosContext()
 
   const [categoriasVisibles, setCategoriasVisibles] = useState(false)
 

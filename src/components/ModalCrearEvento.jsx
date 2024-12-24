@@ -7,12 +7,13 @@ import { LuText } from "react-icons/lu";
 import { MdClose } from "react-icons/md";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import crearIntervaloHoras from "../utils/crearIntervaloHoras";
 import { useEventosContext } from "../contexts/EventosContext";
 
 const URL = "http://localhost:3001/eventos/crear"
 
 const ModalCrearEvento = ({cerrarModal}) => {
+
+  const {categorias, crearEvento} = useEventosContext()
 
   const compararHoras = (inicio, final) => {
     const horasInicio = parseInt(inicio.split(":")[0])
@@ -47,8 +48,6 @@ const ModalCrearEvento = ({cerrarModal}) => {
     })
   }
 
-  const categorias = ["estudio", "trabajo", "deporte", "ocio"]
-
   const handleCategoria = (value) => {
     setFormData(prev => {
       return {...prev, categoria: value}
@@ -56,31 +55,25 @@ const ModalCrearEvento = ({cerrarModal}) => {
   }
 
   const validarDatos = (formData) => {
-    const {hora_inicio, hora_final, nombre} = formData
-    const errores = []
-    const horaValida = compararHoras(hora_inicio, hora_final)
-    const tituloValido = nombre.length !== 0
-    if(!horaValida) errores.push("El rango de horas no es valido")
-    if(!tituloValido) errores.push("El titulo no puede estar vacio")
-    return errores
-  }
+    const { hora_inicio, hora_final, nombre } = formData;
+    const errores = [];
+    // Verificar si hora_inicio o hora_final están vacíos, undefined o null
+    if (!hora_inicio || !hora_final) errores.push("Las horas no pueden estar vacías");
+    // Verificar rango de horas
+    const horaValida = compararHoras(hora_inicio, hora_final);
+    if (!horaValida) errores.push("El rango de horas no es válido");
+    // Verificar que el título no esté vacío
+    if (!nombre || nombre.trim().length === 0) errores.push("El título no puede estar vacío");
+    return errores;
+  };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     try{
       const errores = validarDatos(formData)
       if(errores.length > 0) throw new Error(errores[0])
-      const response = await fetch(URL, {
-        method: "POST",
-        credentials: "include",
-        headers:{
-          "Content-type": "application/json"
-        },
-        body: JSON.stringify(formData)
-      })
-      const data = await response.json()
-      if(!response.ok) throw new Error(data.msg)
-      console.log({response, data, formData})
+      await crearEvento(formData)
       setFormData(initialFormData)
     } catch(error){
       toast(error.message ?? "Ocurrio un error", {

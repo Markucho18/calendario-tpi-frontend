@@ -1,12 +1,14 @@
 import styles from "../styles/VistaMes.module.css"
 import { useEffect, useState } from "react"
+import { useEventosContext } from "../contexts/EventosContext"
 import generarCalendario from "../utils/generarCalendario"
+import VistaMesDia from "./VistaMesDia"
 
 const dias = ["DOM", "LUN", "MAR", "MIE", "JUE", "VIE", "SAB"]
 
-const meses = ["ENE", "FEB", "MAR", "ABR", "MAY", "JUN", "JUL", "AGO", "SEP", "OCT", "NOV", "DEC"]
-
 const VistaMes = () => {
+
+  const {eventos} = useEventosContext()
 
   const [mes, setMes] = useState(new Date().getMonth() + 1)
   const [anio, setAnio] = useState(new Date().getFullYear())
@@ -18,22 +20,19 @@ const VistaMes = () => {
 
   return (
     <main className={styles.contenedorVistaMes}>
+      <header>
+        {dias.map((dia, i) => <p key={i}>{dia}</p> )}
+      </header>
       {semanasCalendario.map((semana, i) => (
         <div
           key={i}
           className={styles.semanaMes}
         >
           {semana.map((dia, j) => (
-            <div
+            <VistaMesDia
               key={j}
-              className={styles.diaMes}
-            >
-              {i === 0 && <p>{dias[j]}</p> }
-              <p>
-                {parseInt(dia.split("-")[1]) !== mes & parseInt(dia.split("-")[2]) === "01" ? meses[parseInt(dia.split("-")[1]) - 1] : ""}
-                {dia.split("-")[2]}
-              </p>
-            </div>
+              fecha={dia}
+            />
           ))}
         </div>
       ))}

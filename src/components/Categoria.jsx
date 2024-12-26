@@ -1,4 +1,5 @@
 import styles from "../styles/BarraLateral.module.css"
+import colorCategoria from "../utils/colorCategoria"
 import { useState } from "react";
 import { FaCheck } from "react-icons/fa6";
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -32,7 +33,10 @@ const Categoria = ({nombre}) => {
   return (
     <li onClick={alternarEstado}>
       <div
-        style={activo ? {backgroundColor: "red"} : {}}
+        style={{
+          border: `solid 2px ${colorCategoria(nombre)}`,
+          backgroundColor: activo ? colorCategoria(nombre) : ""
+        }}
         className={styles.contenedorCheck}
       >
         <input type="checkbox" />

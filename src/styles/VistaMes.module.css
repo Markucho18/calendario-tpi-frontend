@@ -48,7 +48,6 @@
 }
 
 .contenedorVistaMes .semanaMes .diaMes .evento{
-  background-color: cornflowerblue;
   border-radius: 0.3rem;
   padding: 2px;
   width: 100%;
@@ -56,4 +55,5 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  cursor: pointer;
 }

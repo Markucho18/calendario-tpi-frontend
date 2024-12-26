@@ -9,18 +9,17 @@ export const EventosContextProvider = ({children}) => {
   const [eventos, setEventos] = useState([])
   const [eventosFiltrados, setEventosFiltrados] = useState([])
 
-  const categories = [
-    { nombre: "Estudio", color: "#4A90E2" },
-    { nombre: "Trabajo", color: "#50E3C2" },
-    { nombre: "Deporte", color: "#B8E986" },
-    { nombre: "Hogar", color: "#F8E71C" },
-    { nombre: "Salud", color: "#D0021B" },
-    { nombre: "Ocio", color: "#BD10E0" },
-    { nombre: "Finanzas", color: "#F5A623" },
-    { nombre: "Social", color: "#9013FE" }
-  ];
-
-  const categorias = ["estudio", "trabajo", "deporte", "ocio"]
+  const categorias = [
+    "indefinido",
+    "estudio",
+    "trabajo",
+    "deporte",
+    "hogar",
+    "salud",
+    "ocio",
+    "finanzas",
+    "social",
+  ]
   const [categoriasActivas, setCategoriasActivas] = useState(categorias)
 
   const obtenerEventos = async () => {
@@ -81,17 +80,8 @@ export const EventosContextProvider = ({children}) => {
   },[])
 
   useEffect(()=>{
-    console.log({eventos}) 
-  },[eventos])
-
-  useEffect(()=>{
-    console.log({eventosFiltrados})
-  },[eventosFiltrados])
-
-  useEffect(()=>{
     filtrarPorCategoria(categoriasActivas)
-    console.log({categoriasActivas})
-  },[categoriasActivas])
+  },[eventos, categoriasActivas])
 
   return (
     <EventosContext.Provider

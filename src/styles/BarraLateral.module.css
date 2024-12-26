@@ -139,7 +139,6 @@
   width: 1rem;
   height: 1rem;
   position: relative;
-  border: solid red 2px;
   border-radius: 5px;
   transition: 150ms ease-in-out;
 }

@@ -15,6 +15,10 @@ const ModalCrearEvento = ({cerrarModal}) => {
 
   const {categorias, crearEvento} = useEventosContext()
 
+  const mayus = (string) => {
+    return `${string[0].toUpperCase()}${string.slice(1)}`
+  }
+
   const compararHoras = (inicio, final) => {
     const horasInicio = parseInt(inicio.split(":")[0])
     const horasFinal = parseInt(final.split(":")[0])
@@ -32,7 +36,7 @@ const ModalCrearEvento = ({cerrarModal}) => {
     fecha: fechaActual,
     hora_inicio: "00:00",
     hora_final: "00:30",
-    categoria: "",
+    categoria: "indefinido",
     descripcion: ""
   }
 
@@ -140,6 +144,7 @@ const ModalCrearEvento = ({cerrarModal}) => {
         </section>
         <section className={styles.datosCategoria}>
           <MdLabel />
+          <p>Categoria: </p>
           <div
             className={styles.contenedorCategoria}
             onClick={(e) => e.stopPropagation()}
@@ -148,9 +153,7 @@ const ModalCrearEvento = ({cerrarModal}) => {
               onClick={toggleOpciones}
               className={styles.tituloCategoria}
             >
-              <p>{formData.categoria.length > 0 
-              ? `${formData.categoria[0].toUpperCase()}${formData.categoria.slice(1)}`
-              : "Categoria"}</p>
+              <p>{mayus(formData.categoria)}</p>
               <IoMdArrowDropdown />
             </div>
             {opciones && (
@@ -163,7 +166,7 @@ const ModalCrearEvento = ({cerrarModal}) => {
                       toggleOpciones()
                     }}
                   >
-                    {`${categoria[0].toUpperCase()}${categoria.slice(1)}`}
+                    {mayus(categoria)}
                   </p>
                 ))}
               </div>

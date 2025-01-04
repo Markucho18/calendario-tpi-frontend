@@ -3,30 +3,36 @@ import colorCategoria from "../utils/colorCategoria"
 import { MdOutlineEdit } from "react-icons/md";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { MdOutlineClose } from "react-icons/md";
+import { useEventosContext } from "../contexts/EventosContext";
 
 const dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"]
 
 const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
 
-const ModalDatosEvento = ({datosEvento}) => {
+const ModalDatosEvento = ({ladoModal, datosEvento, cerrarModal}) => {
+
+  const {borrarEvento} = useEventosContext()
 
   const formatearFecha = (fecha) => {
     const indiceSemana = (new Date(fecha)).getDay()
     const diaSemana = dias[indiceSemana]
     const indiceMes = (new Date(fecha)).getMonth()
     const mes = meses[indiceMes]
-    const dia = fecha.split("-")[2]
+    const dia = (fecha.split("T")[0]).split("-")[2]
     const fechaFormateada = `${diaSemana}, ${mes} ${dia}`
+    return fechaFormateada
   }
 
-  const {nombre, categoria, fecha, hora_inicio, hora_final} = datosEvento
+  const formatearHora = hora => hora.slice(0,5)
+
+  const {id, nombre, categoria, fecha, hora_inicio, hora_final} = datosEvento
 
   return (
-    <div className={styles.contenedorDatosEvento}>
+    <div className={`${styles.contenedorDatosEvento} ${styles[ladoModal]}`}>
       <header>
           <MdOutlineEdit />
-          <RiDeleteBinLine />
-          <MdOutlineClose />
+          <RiDeleteBinLine onClick={() => borrarEvento(id)}/>
+          <MdOutlineClose onClick={cerrarModal}/>
       </header>
       <main>
         <div className={styles.titulo}>
@@ -38,7 +44,7 @@ const ModalDatosEvento = ({datosEvento}) => {
           <p>{nombre}</p>
         </div>
         <p>{formatearFecha(fecha)}</p>
-        <p>{hora_inicio} - {hora_final}</p>
+        <p>{formatearHora(hora_inicio)} - {formatearHora(hora_final)}</p>
       </main>
     </div>
   )

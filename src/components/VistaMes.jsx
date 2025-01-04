@@ -14,6 +14,12 @@ const VistaMes = () => {
   const [anio, setAnio] = useState(new Date().getFullYear())
   const [semanasCalendario, setSemanasCalendario] = useState(generarCalendario(mes, anio).slice(0, -1))
 
+  const [idModalDatosEvento, setIdModalDatosEvento] = useState()
+
+  const cerrarModalDatos = () => setIdModalDatosEvento()
+
+  const abrirModalDatos = (id) => setIdModalDatosEvento(id)
+
   useEffect(()=>{
     console.log({semanasCalendario, mes})
   },[semanasCalendario])
@@ -32,6 +38,9 @@ const VistaMes = () => {
             <VistaMesDia
               key={j}
               fecha={dia}
+              idModalDatosEvento={idModalDatosEvento}
+              cerrarModalDatos={cerrarModalDatos}
+              abrirModalDatos={abrirModalDatos}
             />
           ))}
         </div>

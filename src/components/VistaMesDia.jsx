@@ -2,10 +2,11 @@ import styles from "../styles/VistaMes.module.css"
 import { useEffect, useState } from "react"
 import { useEventosContext } from "../contexts/EventosContext"
 import colorCategoria from "../utils/colorCategoria"
+import ModalDatosEvento from "./ModalDatosEvento"
 
 const meses = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dec"]
 
-const VistaMesDia = ({fecha}) => {
+const VistaMesDia = ({key, fecha, idModalDatosEvento, cerrarModalDatos, abrirModalDatos}) => {
 
   const {eventosFiltrados} = useEventosContext()
 
@@ -38,8 +39,31 @@ const VistaMesDia = ({fecha}) => {
     obtenerEventosDia()
   },[eventosFiltrados])
 
+  //Para que no desborde la pantalla el modal con info
+  const obtenerLadoModal = (fecha) => {
+    const indiceSemana = (new Date(fecha)).getDay()
+    //Si es vienres o sabado
+    const estaAlBorde = indiceSemana == 4 || indiceSemana == 5
+    const lado = estaAlBorde ? "izquierda" : "derecha"
+    return lado
+  }
+
+  const [ladoModal, setLadoModal] = useState("derecha")
+
+  useEffect(()=>{
+    const lado = obtenerLadoModal(fecha)
+    setLadoModal(lado)
+  },[])
+
   return (
     <div className={styles.diaMes}>
+      {eventosDia.some(evento => evento.id === idModalDatosEvento) && (
+        <ModalDatosEvento
+          ladoModal={ladoModal}
+          datosEvento={eventosDia.find(evento => evento.id === idModalDatosEvento)}
+          cerrarModal={cerrarModalDatos}
+        />
+      )}
       <p>
       {dia === "01" && (
         <span>
@@ -53,9 +77,10 @@ const VistaMesDia = ({fecha}) => {
       </p>
       {eventosDia.map((evento, i)=>(
         <div
+          key={i}
           style={{backgroundColor: colorCategoria(evento.categoria)}}
           className={styles.evento}
-          key={i}
+          onClick={() => abrirModalDatos(evento.id)}
         >
           ({evento.hora_inicio.slice(0,5) ?? "Sin Hora"}) {evento.nombre}
         </div>

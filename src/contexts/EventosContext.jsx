@@ -66,8 +66,19 @@ export const EventosContextProvider = ({children}) => {
     })
   }
 
-  const borrarEvento = (idEvento) => {
-    setEventos(prev => prev.filter(evento => evento.id !== idEvento))
+  const borrarEvento = async (idEvento) => {
+    try{
+      const URL = `http://localhost:3001/eventos/borrar/${idEvento}`
+      const response = await fetch(URL, {
+        method: "DELETE",
+        credentials: "include",
+      })
+      const data = await response.json()
+      console.log({mensaje: data.msg})
+      setEventos(prev => prev.filter(evento => evento.id !== idEvento))
+    } catch(error){
+      console.log(error.message ?? "Ocurrio un error")
+    }
   }
 
   const filtrarPorCategoria = (categorias) => {
@@ -91,6 +102,7 @@ export const EventosContextProvider = ({children}) => {
         categorias,
         categoriasActivas, setCategoriasActivas,
         crearEvento,
+        borrarEvento,
       }}
     >
       {children}

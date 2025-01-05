@@ -6,7 +6,7 @@ import ModalDatosEvento from "./ModalDatosEvento"
 
 const meses = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dec"]
 
-const VistaMesDia = ({key, fecha, idModalDatosEvento, cerrarModalDatos, abrirModalDatos}) => {
+const VistaMesDia = ({fecha, idModalDatosEvento, cerrarModalDatos, abrirModalDatos}) => {
 
   const {eventosFiltrados} = useEventosContext()
 

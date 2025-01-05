@@ -5,11 +5,14 @@ import Login from "./components/Login"
 import borrarDatosUsuario from "./utils/borrarDatosUsuario"
 import PaginaPrincipal from "./components/PaginaPrincipal"
 import ModalCrearEvento from "./components/ModalCrearEvento"
+import ModalEditarEvento from "./components/ModalEditarEvento"
+import { useModalesContext } from "./contexts/ModalesContext"
 
 //const URL = "https://bicicleteria-tpi-backend.onrender.com"
-const URL = "http://localhost:3001/"
 
 const App = () => {
+
+  const {modalCrearEvento, setModalCrearEvento, modalEditarEvento, cerrarModalEditarEvento} = useModalesContext(false)
 
   const [tokenValido, setTokenValido] = useState(false)
 
@@ -59,17 +62,17 @@ const App = () => {
     else setForm("login")
   }
 
-  const [modalEvento, setModalEvento] = useState(false)
-
   return (
     <div className={styles.App}>
-      {modalEvento && <ModalCrearEvento
-        cerrarModal={() => setModalEvento(false)}
+      {modalCrearEvento && <ModalCrearEvento
+        cerrarModal={() => setModalCrearEvento(false)}
+      /> }
+      {modalEditarEvento.abierto && <ModalEditarEvento
+        datosEvento={modalEditarEvento.datos}
+        cerrarModal={cerrarModalEditarEvento}
       /> }
       {tokenValido === true ? (
-        <PaginaPrincipal
-          toggleModalEvento={() => setModalEvento(prev => !prev)}
-        />
+        <PaginaPrincipal/>
       ) : (
         <>
           {form === "login" && <Login

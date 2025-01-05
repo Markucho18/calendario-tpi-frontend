@@ -7,7 +7,10 @@ import { LuText } from "react-icons/lu";
 import { MdClose } from "react-icons/md";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 import { useEventosContext } from "../contexts/EventosContext";
+import useFormData from "../hooks/useFormData";
+import validarDatosForm from "../utils/validarDatosForm";
 
 const URL = "http://localhost:3001/eventos/crear"
 
@@ -18,17 +21,7 @@ const ModalCrearEvento = ({cerrarModal}) => {
   const mayus = (string) => {
     return `${string[0].toUpperCase()}${string.slice(1)}`
   }
-
-  const compararHoras = (inicio, final) => {
-    const horasInicio = parseInt(inicio.split(":")[0])
-    const horasFinal = parseInt(final.split(":")[0])
-    const minutosInicio = horasInicio * 60 + parseInt(inicio.split(":")[1])
-    const minutosFinal = horasFinal * 60 + parseInt(final.split(":")[1])
-    const esValido = (minutosFinal - minutosInicio) > 0
-    console.log({minutosFinal, minutosInicio, esValido})
-    return esValido
-  }
-
+  
   const fechaActual = ((new Date()).toISOString()).split("T")[0]
 
   const initialFormData = {
@@ -40,45 +33,16 @@ const ModalCrearEvento = ({cerrarModal}) => {
     descripcion: ""
   }
 
-  const [formData, setFormData] = useState(initialFormData)
-
-  const handleChange = (e) => {
-    const {name, value} = e.target
-    setFormData(prev => {
-      return {
-        ...prev,
-        [name]: value
-      }
-    })
-  }
-
-  const handleCategoria = (value) => {
-    setFormData(prev => {
-      return {...prev, categoria: value}
-    })
-  }
-
-  const validarDatos = (formData) => {
-    const { hora_inicio, hora_final, nombre } = formData;
-    const errores = [];
-    // Verificar si hora_inicio o hora_final están vacíos, undefined o null
-    if (!hora_inicio || !hora_final) errores.push("Las horas no pueden estar vacías");
-    // Verificar rango de horas
-    const horaValida = compararHoras(hora_inicio, hora_final);
-    if (!horaValida) errores.push("El rango de horas no es válido");
-    // Verificar que el título no esté vacío
-    if (!nombre || nombre.trim().length === 0) errores.push("El título no puede estar vacío");
-    return errores;
-  };
-  
+  const {formData, setFormData, limpiarForm, handleChange, handleCategoria} = useFormData(initialFormData)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     try{
-      const errores = validarDatos(formData)
+      const errores = validarDatosForm(formData)
       if(errores.length > 0) throw new Error(errores[0])
       await crearEvento(formData)
-      setFormData(initialFormData)
+      limpiarForm()
+      cerrarModal()
     } catch(error){
       toast(error.message ?? "Ocurrio un error", {
         position: "bottom-right",

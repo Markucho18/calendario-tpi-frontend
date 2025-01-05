@@ -2,8 +2,6 @@ import { useContext, createContext, useState, useEffect } from "react";
 
 const EventosContext = createContext()
 
-const URL = "http://localhost:3001/eventos"
-
 export const EventosContextProvider = ({children}) => {
 
   const [eventos, setEventos] = useState([])
@@ -22,17 +20,29 @@ export const EventosContextProvider = ({children}) => {
   ]
   const [categoriasActivas, setCategoriasActivas] = useState(categorias)
 
+  //Para que queden con el formato YYYY-MM-DD
+  const formatearFechas = (eventos) => {
+    const nuevosEventos = eventos.map(evento => {
+      const fechaFormateada = evento.fecha.split("T")[0]
+      return {...evento, fecha: fechaFormateada}
+    })
+    return nuevosEventos
+  }
+
   const obtenerEventos = async () => {
     try{
+      const URL = "http://localhost:3001/eventos"
       const response = await fetch(URL, {
         method: "GET",
         credentials: "include"
       })
       const data = await response.json()
-      const {msg, rows} = data
-      if(!response.ok) throw new Error(msg)
-      setEventos(rows)
-      setEventosFiltrados(rows)
+      const mensaje = data.msg
+      const eventosBackend = data.rows
+      if(!response.ok) throw new Error(mensaje)
+      const nuevosEventos = formatearFechas(eventosBackend)
+      setEventos(nuevosEventos)
+      setEventosFiltrados(nuevosEventos)
     } catch(error){
       console.log(error.message ?? "Ocurrio un error")
     }
@@ -40,7 +50,8 @@ export const EventosContextProvider = ({children}) => {
 
   const crearEvento = async (infoEvento) => {
     try{
-      const response = await fetch(`${URL}/crear`, {
+      const URL = "http://localhost:3001/eventos/crear"
+      const response = await fetch(URL, {
         method: "POST",
         credentials: "include",
         headers:{
@@ -48,22 +59,41 @@ export const EventosContextProvider = ({children}) => {
         },
         body: JSON.stringify(infoEvento)
       })
-      const data = await response.json()
-      if(!response.ok) throw new Error(data.msg)
-      setEventos(prev => [...prev, infoEvento])
+      const {msg, id_evento} = await response.json()
+      if(!response.ok) throw new Error(msg)
+      const nuevoEvento = {...infoEvento, id: id_evento}
+      setEventos(prev => [...prev, nuevoEvento])
+      console.log({data})
     } catch(error){
       console.log(error.message ?? "Ocurrio un error")
     }
   }
 
-  const editarEvento = (infoEvento) => {
-    setEventos(prev => {
-      const nuevoEstado = prev.map((evento) => {
-        if(evento.id === infoEvento.id) return infoEvento
-        else return evento
+  const editarEvento = async (infoEvento) => {
+    try{
+      const URL = "http://localhost:3001/eventos/editar"
+      const response = await fetch(URL, {
+        method: "PUT",
+        credentials: "include",
+        headers:{
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify(infoEvento)
       })
-      return nuevoEstado
-    })
+      const data = await response.json()
+      const mensaje = data.msg
+      if(!response.ok) throw new Error(mensaje)
+      setEventos(prev => {
+        const nuevoEstado = prev.map((evento) => {
+          if(evento.id === infoEvento.id) return infoEvento
+          else return evento
+        })
+        return nuevoEstado
+      })
+      console.log({mensaje})
+    } catch(error){
+      console.log(error.message ?? "Ocurrio un error")
+    }
   }
 
   const borrarEvento = async (idEvento) => {
@@ -102,6 +132,7 @@ export const EventosContextProvider = ({children}) => {
         categorias,
         categoriasActivas, setCategoriasActivas,
         crearEvento,
+        editarEvento,
         borrarEvento,
       }}
     >

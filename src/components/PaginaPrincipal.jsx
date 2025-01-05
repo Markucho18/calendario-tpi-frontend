@@ -6,14 +6,18 @@ import VistaDia from "./VistaDia"
 import VistaMes from "./VistaMes"
 import { FaPlus } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
+import { useModalesContext } from "../contexts/ModalesContext"
 
 const PaginaPrincipal = ({toggleModalEvento}) => {
+
+  const {modalCrearEvento, setModalCrearEvento} = useModalesContext()
 
   const [estadoBarra, setEstadoBarra] = useState(true)
   
   const [vista, setVista] = useState("dia")
 
   const [modalOpciones, setModalOpciones] = useState(false)
+  const alternarModalEvento = () => setModalCrearEvento(prev => !prev)
 
   return (
     <div className={styles.contenedorPrincipal}>
@@ -34,7 +38,7 @@ const PaginaPrincipal = ({toggleModalEvento}) => {
           <div className={styles.modalOpciones}>
             <p
               onClick={() =>{
-                toggleModalEvento()
+                alternarModalEvento()
                 setModalOpciones(false)
               }}
               className={styles.modalOpcion}

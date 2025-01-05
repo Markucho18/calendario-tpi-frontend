@@ -4,12 +4,15 @@ import { MdOutlineEdit } from "react-icons/md";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { MdOutlineClose } from "react-icons/md";
 import { useEventosContext } from "../contexts/EventosContext";
+import { useModalesContext } from "../contexts/ModalesContext";
 
 const dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"]
 
 const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
 
 const ModalDatosEvento = ({ladoModal, datosEvento, cerrarModal}) => {
+
+  const {abrirModalEditarEvento} = useModalesContext()
 
   const {borrarEvento} = useEventosContext()
 
@@ -30,7 +33,10 @@ const ModalDatosEvento = ({ladoModal, datosEvento, cerrarModal}) => {
   return (
     <div className={`${styles.contenedorDatosEvento} ${styles[ladoModal]}`}>
       <header>
-          <MdOutlineEdit />
+          <MdOutlineEdit onClick={() => {
+            abrirModalEditarEvento(datosEvento)
+            cerrarModal()
+          }}/>
           <RiDeleteBinLine onClick={() => borrarEvento(id)}/>
           <MdOutlineClose onClick={cerrarModal}/>
       </header>

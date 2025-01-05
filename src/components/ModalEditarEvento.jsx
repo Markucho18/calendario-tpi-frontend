@@ -8,8 +8,10 @@ import { MdClose } from "react-icons/md";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEventosContext } from "../contexts/EventosContext";
+import useFormData from "../hooks/useFormData";
+import validarDatosForm from "../utils/validarDatosForm";
 
-const ModalEditarEvento = ({datosEvento}) => {
+const ModalEditarEvento = ({datosEvento, cerrarModal}) => {
 
   const {categorias, editarEvento} = useEventosContext()
 
@@ -17,10 +19,31 @@ const ModalEditarEvento = ({datosEvento}) => {
     return `${string[0].toUpperCase()}${string.slice(1)}`
   }
 
-  //Excluimos el id y hacemos nuevo objeto
-  const {id, ...initialFormData} = datosEvento
+  const {formData, setFormData, limpiarForm, handleChange, handleCategoria} = useFormData(datosEvento)
 
-  const [formData, setFormData] = useState(initialFormData)
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try{
+      const errores = validarDatosForm(formData)
+      if(errores.length > 0) throw new Error(errores[0])
+      await editarEvento(formData)
+      limpiarForm()
+      cerrarModal()
+    } catch(error){
+      toast(error.message ?? "Ocurrio un error", {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        pauseOnHover: true,
+        style:{
+          color: "red"
+        }
+      });
+    }
+  }
+
+  const [opciones, setOpciones] = useState(false)
+  const toggleOpciones = () => setOpciones(prev => !prev)
 
   return (
     <div
